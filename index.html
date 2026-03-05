@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Invitation for Sarah 🎂</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff3f34;
+            --secondary: #ff85a1;
+            --bg: #fff0f3;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--bg);
+            overflow: hidden;
+        }
+
+        /* Heart Background */
+        .bg-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -100px;
+            background-color: var(--secondary);
+            opacity: 0.3;
+            border-radius: 50%;
+            animation: moveUp 8s linear infinite;
+        }
+
+        @keyframes moveUp {
+            0% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-120vh);
+                opacity: 0;
+            }
+        }
+
+        /* Countdown Style */
+        #countdown {
+            font-weight: bold;
+            color: #d63031;
+            background: #ffeaa7;
+            padding: 8px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 0 #fab1a0;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 380px;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            border: 2px solid white;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 10px 0;
+        }
+
+        p {
+            color: #444;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .btn-wrapper {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #000;
+            transition: transform 0.15s ease-out;
+        }
+
+            button:active {
+                transform: translateY(4px);
+                box-shadow: none;
+            }
+
+        #yesBtn {
+            background-color: #05c46b;
+            color: white;
+            position: relative;
+            z-index: 5;
+        }
+
+        #noBtn {
+            background-color: var(--primary);
+            color: white;
+            position: relative;
+            z-index: 100;
+        }
+
+        #popup {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2f3542;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            border-radius: 15px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #backBtn {
+            background-color: #747d8c;
+            color: white;
+            margin-top: 20px;
+            box-shadow: 0 3px 0 #2f3542;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <div class="container">
+        <div id="popup">Ooopps!</div>
+
+        <div id="questionSection">
+            <div id="countdown">Loading countdown...</div>
+            <h1>Sarah's Birthday Invitation! 💖</h1>
+            <p>Will Sarah spend her whole day on 14/3/2026 together with Haziq and be the happiest girl ever?</p>
+            <div class="btn-wrapper">
+                <button id="yesBtn">YES! 😍</button>
+                <button id="noBtn">No 🥺</button>
+            </div>
+        </div>
+
+        <div id="answerSection" class="hidden">
+            <h1>YEAYY:P 🎉</h1>
+            <p>Thank you very much for accepting! <br> See you soon! </p>
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmg2NDR1emh6dmRxcnF2ZTQ1aDZkMHhxZ2pqMmo2NXIzbjNhZnhrcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6WFScxN6fi95z3YVQD/giphy.gif">
+            <button id="backBtn">Go Back Home 🏠</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Countdown Logic
+        function updateCountdown() {
+            const birthday = new Date("March 14, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = birthday - now;
+
+            if (diff <= 0) {
+                document.getElementById("countdown").innerHTML = "It's Party Time! 🎂";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML =
+                `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until the big day!`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. Hearts Background
+        const bg = document.getElementById('bgHearts');
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.width = heart.style.height = Math.random() * 20 + 10 + 'px';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 8 + 's';
+            bg.appendChild(heart);
+        }
+
+        // 3. Button & Popup Logic
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionSection = document.getElementById('questionSection');
+        const answerSection = document.getElementById('answerSection');
+        const backBtn = document.getElementById('backBtn');
+        const popup = document.getElementById('popup');
+
+        const phrases = ["Wrong button!", "Are you sure?", "Think again...", "Nice try!", "Try the green one!", "Tak baik", "Oops, missed it!"];
+        let yesScale = 1;
+        let count = 0;
+
+        const handleNo = () => {
+            noBtn.style.position = 'fixed';
+            const padding = 60;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            const randomX = Math.max(padding, Math.random() * maxX);
+            const randomY = Math.max(padding, Math.random() * maxY);
+
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            popup.innerText = phrases[count % phrases.length];
+            popup.style.opacity = "1";
+            setTimeout(() => { popup.style.opacity = "0"; }, 1000);
+
+            yesScale += 0.25;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            count++;
+        };
+
+        noBtn.addEventListener('mouseover', handleNo);
+        noBtn.addEventListener('click', (e) => { e.preventDefault(); handleNo(); });
+
+        yesBtn.addEventListener('click', () => {
+            noBtn.classList.add('hidden');
+            questionSection.classList.add('hidden');
+            answerSection.classList.remove('hidden');
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        });
+
+        backBtn.addEventListener('click', () => {
+            yesScale = 1;
+            yesBtn.style.transform = `scale(1)`;
+            noBtn.classList.remove('hidden');
+            noBtn.style.position = 'relative';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+            answerSection.classList.add('hidden');
+            questionSection.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
