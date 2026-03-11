@@ -11,6 +11,12 @@
             --secondary: #ff85a1;
             --bg: #fff0f3;
             --accent: #6c5ce7;
+            --text-dark: #2d3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -19,188 +25,146 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            /* Standard clean font stack */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
+            color: var(--text-dark);
             overflow-x: hidden;
         }
 
+        /* Animated Hearts */
         .bg-hearts {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
+            pointer-events: none;
         }
 
         .heart {
             position: absolute;
             bottom: -100px;
             background-color: var(--secondary);
-            opacity: 0.3;
+            opacity: 0.2;
             border-radius: 50%;
             animation: moveUp 8s linear infinite;
         }
 
         @keyframes moveUp {
-            0% {
-                transform: translateY(0);
-                opacity: 0.6;
-            }
+            0% { transform: translateY(0); opacity: 0.5; }
+            100% { transform: translateY(-120vh); opacity: 0; }
+        }
 
-            100% {
-                transform: translateY(-120vh);
-                opacity: 0;
-            }
+        /* Container */
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin: 20px auto;
         }
 
         #countdown {
-            font-weight: bold;
+            font-weight: 700;
             color: #d63031;
-            background: #ffeaa7;
-            padding: 8px 15px;
-            border-radius: 10px;
+            background: #fff9e6;
+            padding: 10px 15px;
+            border-radius: 12px;
             display: inline-block;
             margin-bottom: 20px;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 0 #fab1a0;
+            font-size: 0.85rem;
+            border: 1px solid #ffeaa7;
         }
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 450px;
-            position: relative;
-            z-index: 10;
-            border: 2px solid white;
-            margin: 20px;
-        }
+        h1 { color: var(--primary); font-size: 1.5rem; margin: 15px 0; font-weight: 800; }
+        p { color: #636e72; font-size: 1.05rem; line-height: 1.5; margin-bottom: 25px; }
 
-        h1 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin: 10px 0;
-        }
-
-        p {
-            color: #444;
-            font-size: 1.1rem;
-            line-height: 1.4;
-        }
-
-        /* Schedule Styling */
+        /* Itinerary - Standard Font */
         .itinerary {
             text-align: left;
-            background: #fff;
-            padding: 15px;
-            border-radius: 20px;
+            background: #fdfcfe;
+            padding: 18px;
+            border-radius: 15px;
             margin: 20px 0;
-            border: 2px dashed var(--secondary);
+            border: 1px solid #eee;
         }
 
-            .itinerary h3 {
-                text-align: center;
-                margin-top: 0;
-                color: var(--accent);
-                font-size: 1.2rem;
-            }
-
-            .itinerary ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .itinerary li {
-                padding: 8px 0;
-                border-bottom: 1px solid #eee;
-                font-size: 0.95rem;
-                display: flex;
-                justify-content: space-between;
-            }
-
-                .itinerary li:last-child {
-                    border-bottom: none;
-                }
-
-        .time {
-            font-weight: bold;
-            color: var(--primary);
-            min-width: 110px;
+        .itinerary h3 {
+            text-align: center;
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
+        .itinerary ul { list-style: none; padding: 0; margin: 0; }
+        .itinerary li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        .itinerary li:last-child { border-bottom: none; }
+        .time { font-weight: 700; color: var(--primary); width: 100px; flex-shrink: 0; }
+        .activity { color: #2d3436; }
+
+        /* Buttons */
         .btn-wrapper {
-            margin-top: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            min-height: 60px;
+            gap: 15px;
+            min-height: 70px;
         }
 
         button {
-            padding: 12px 25px;
-            font-size: 1.1rem;
+            padding: 14px 28px;
+            font-size: 1rem;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 0 #000;
-            transition: transform 0.15s ease-out;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-            button:active {
-                transform: translateY(4px);
-                box-shadow: none;
-            }
-
-        #yesBtn {
-            background-color: #05c46b;
-            color: white;
+        #yesBtn { background-color: #00b894; color: white; }
+        #noBtn { background-color: var(--primary); color: white; }
+        #backBtn { 
+            background-color: #dfe6e9; 
+            color: #636e72; 
+            margin-top: 15px; 
+            font-size: 0.9rem;
+            box-shadow: none;
         }
 
-        #noBtn {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        #backBtn {
-            background-color: #747d8c;
-            color: white;
-            margin-top: 10px;
-        }
+        /* Mobile specific fix for No button */
+        #noBtn.moving { position: fixed; z-index: 1000; }
 
         #popup {
             position: absolute;
-            top: 20px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            background: #2f3542;
+            background: #2d3436;
             color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
-            z-index: 100;
         }
 
-        .hidden {
-            display: none;
-        }
-
-        img {
-            border-radius: 15px;
-            width: 100%;
-            max-width: 250px;
-            margin: 10px auto;
-            display: block;
-        }
+        .hidden { display: none !important; }
+        img { border-radius: 12px; width: 100%; max-width: 200px; margin: 15px auto; display: block; }
     </style>
 </head>
 <body>
@@ -211,9 +175,9 @@
         <div id="popup">Ooopps!</div>
 
         <div id="questionSection">
-            <div id="countdown">Loading countdown...</div>
-            <h1>Sarah's Birthday Invitation! 💖</h1>
-            <p>Will Sarah spend her whole day on 14/3/2026 together with Haziq and be the happiest girl ever? (*Postpone to 15/3/2026)</p>
+            <div id="countdown">Loading...</div>
+            <h1>Sarah's Birthday 💖</h1>
+            <p>Will Sarah spend her whole day on 14/3/2026 with Haziq and be the happiest girl ever?</p>
             <div class="btn-wrapper">
                 <button id="yesBtn">YES! 😍</button>
                 <button id="noBtn">No 🥺</button>
@@ -221,62 +185,58 @@
         </div>
 
         <div id="answerSection" class="hidden">
-            <h1>YEAYY :P 🎉</h1>
-            <p>Thank you for accepting! Here's our tentative plan:</p>
-
+            <h1>YEAYY! 🎉</h1>
+            <p>I can't wait! Here is what we're doing:</p>
+            
             <div class="itinerary">
-                <h3>🎂 Birthday Itinerary</h3>
+                <h3>Tentative Schedule</h3>
                 <ul>
-                    <li><span class="time">11:00am - 1:00pm</span> <span>Library school works</span></li>
-                    <li><span class="time">2:00pm - 3:30pm</span> <span>Escape Room (Harry Potter)</span></li>
-                    <li><span class="time">3:30pm - 4:30pm</span> <span>Art Studio 🎨</span></li>
-                    <li><span class="time">4:30pm - 6:00pm</span> <span>Free Time ✨</span></li>
-                    <li><span class="time">6:30pm - 8:00pm</span> <span>Iftar at Jibril 🌙</span></li>
-                    <li><span class="time">8:00pm - 9:00pm</span> <span>Loaf Adam Moreh 🥐</span></li>
+                    <li><span class="time">11am - 1pm</span> <span class="activity">Library / School work</span></li>
+                    <li><span class="time">2pm - 3:30pm</span> <span class="activity">Harry Potter Escape Room</span></li>
+                    <li><span class="time">3:30pm - 4:30</span> <span class="activity">Art Studio Session 🎨</span></li>
+                    <li><span class="time">4:30 - 6:00</span> <span class="activity">Free Time & Relaxation</span></li>
+                    <li><span class="time">6:30 - 8:00</span> <span class="activity">Iftar at Jibril 🌙</span></li>
+                    <li><span class="time">8:00 - 9:00</span> <span class="activity">Loaf Adam Moreh 🥐</span></li>
                 </ul>
             </div>
 
             <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmg2NDR1emh6dmRxcnF2ZTQ1aDZkMHhxZ2pqMmo2NXIzbjNhZnhrcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6WFScxN6fi95z3YVQD/giphy.gif">
-            <br>
-            <button id="backBtn">Go Back Home 🏠</button>
+            <button id="backBtn">Reset</button>
         </div>
     </div>
 
     <script>
-        // 1. Countdown Logic
+        // Countdown
         function updateCountdown() {
-            const birthday = new Date("March 15, 2026 00:00:00").getTime();
+            const birthday = new Date("March 14, 2026 00:00:00").getTime();
             const now = new Date().getTime();
             const diff = birthday - now;
+            const cd = document.getElementById("countdown");
 
-            if (diff <= 0) {
-                document.getElementById("countdown").innerHTML = "It's Party Time! 🎂";
-                return;
-            }
+            if (diff <= 0) { cd.innerHTML = "It's Party Time! 🎂"; return; }
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML =
-                `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until the big day!`;
+            cd.innerHTML = `⏳ ${days}d ${hours}h ${mins}m ${secs}s until your day!`;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // 2. Hearts Background
+        // Hearts
         const bg = document.getElementById('bgHearts');
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 12; i++) {
             const heart = document.createElement('div');
             heart.className = 'heart';
-            heart.style.width = heart.style.height = Math.random() * 20 + 10 + 'px';
+            heart.style.width = heart.style.height = Math.random() * 15 + 10 + 'px';
             heart.style.left = Math.random() * 100 + '%';
             heart.style.animationDelay = Math.random() * 8 + 's';
             bg.appendChild(heart);
         }
 
-        // 3. Logic
+        // Logic
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const questionSection = document.getElementById('questionSection');
@@ -284,13 +244,14 @@
         const backBtn = document.getElementById('backBtn');
         const popup = document.getElementById('popup');
 
-        const phrases = ["Wrong button!", "Are you sure?", "Think again...", "Nice try!", "Try the green one!", "Tak baik", "Oops, missed it!"];
+        const phrases = ["Wrong button!", "Are you sure?", "Think again...", "Try the green one!", "Tak baik!", "Oops!"];
         let yesScale = 1;
         let count = 0;
 
-        const handleNo = () => {
-            noBtn.style.position = 'fixed';
-            const padding = 60;
+        const handleNo = (e) => {
+            e.preventDefault();
+            noBtn.classList.add('moving');
+            const padding = 40;
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
             const randomX = Math.max(padding, Math.random() * maxX);
@@ -301,32 +262,25 @@
 
             popup.innerText = phrases[count % phrases.length];
             popup.style.opacity = "1";
-            setTimeout(() => { popup.style.opacity = "0"; }, 1000);
+            setTimeout(() => { popup.style.opacity = "0"; }, 800);
 
-            yesScale += 0.2;
+            yesScale += 0.15;
             yesBtn.style.transform = `scale(${yesScale})`;
             count++;
         };
 
+        noBtn.addEventListener('touchstart', handleNo);
         noBtn.addEventListener('mouseover', handleNo);
-        noBtn.addEventListener('click', (e) => { e.preventDefault(); handleNo(); });
+        noBtn.addEventListener('click', (e) => e.preventDefault());
 
         yesBtn.addEventListener('click', () => {
-            noBtn.classList.add('hidden');
             questionSection.classList.add('hidden');
             answerSection.classList.remove('hidden');
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 100, spread: 60, origin: { y: 0.7 } });
         });
 
         backBtn.addEventListener('click', () => {
-            yesScale = 1;
-            yesBtn.style.transform = `scale(1)`;
-            noBtn.classList.remove('hidden');
-            noBtn.style.position = 'relative';
-            noBtn.style.left = 'auto';
-            noBtn.style.top = 'auto';
-            answerSection.classList.add('hidden');
-            questionSection.classList.remove('hidden');
+            location.reload(); // Cleanest way to reset on mobile
         });
     </script>
 </body>
