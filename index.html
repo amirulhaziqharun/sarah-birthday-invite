@@ -10,6 +10,7 @@
             --primary: #ff3f34;
             --secondary: #ff85a1;
             --bg: #fff0f3;
+            --accent: #6c5ce7;
         }
 
         body {
@@ -17,15 +18,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             background-color: var(--bg);
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Heart Background */
         .bg-hearts {
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
@@ -52,7 +54,6 @@
             }
         }
 
-        /* Countdown Style */
         #countdown {
             font-weight: bold;
             color: #d63031;
@@ -68,22 +69,20 @@
         .container {
             text-align: center;
             background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
+            padding: 30px;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 380px;
-            min-height: 480px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            width: 90%;
+            max-width: 450px;
             position: relative;
             z-index: 10;
             border: 2px solid white;
+            margin: 20px;
         }
 
         h1 {
             color: var(--primary);
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin: 10px 0;
         }
 
@@ -91,6 +90,47 @@
             color: #444;
             font-size: 1.1rem;
             line-height: 1.4;
+        }
+
+        /* Schedule Styling */
+        .itinerary {
+            text-align: left;
+            background: #fff;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 2px dashed var(--secondary);
+        }
+
+            .itinerary h3 {
+                text-align: center;
+                margin-top: 0;
+                color: var(--accent);
+                font-size: 1.2rem;
+            }
+
+            .itinerary ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .itinerary li {
+                padding: 8px 0;
+                border-bottom: 1px solid #eee;
+                font-size: 0.95rem;
+                display: flex;
+                justify-content: space-between;
+            }
+
+                .itinerary li:last-child {
+                    border-bottom: none;
+                }
+
+        .time {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 110px;
         }
 
         .btn-wrapper {
@@ -121,15 +161,17 @@
         #yesBtn {
             background-color: #05c46b;
             color: white;
-            position: relative;
-            z-index: 5;
         }
 
         #noBtn {
             background-color: var(--primary);
             color: white;
-            position: relative;
-            z-index: 100;
+        }
+
+        #backBtn {
+            background-color: #747d8c;
+            color: white;
+            margin-top: 10px;
         }
 
         #popup {
@@ -154,15 +196,10 @@
 
         img {
             border-radius: 15px;
-            margin-top: 20px;
             width: 100%;
-        }
-
-        #backBtn {
-            background-color: #747d8c;
-            color: white;
-            margin-top: 20px;
-            box-shadow: 0 3px 0 #2f3542;
+            max-width: 250px;
+            margin: 10px auto;
+            display: block;
         }
     </style>
 </head>
@@ -176,7 +213,7 @@
         <div id="questionSection">
             <div id="countdown">Loading countdown...</div>
             <h1>Sarah's Birthday Invitation! 💖</h1>
-            <p>Will Sarah spend her whole day on 14/3/2026 together with Haziq and be the happiest girl ever?</p>
+            <p>Will Sarah spend her whole day on 14/3/2026 together with Haziq and be the happiest girl ever? (*Postpone to 15/3/2026)</p>
             <div class="btn-wrapper">
                 <button id="yesBtn">YES! 😍</button>
                 <button id="noBtn">No 🥺</button>
@@ -184,9 +221,23 @@
         </div>
 
         <div id="answerSection" class="hidden">
-            <h1>YEAYY:P 🎉</h1>
-            <p>Thank you very much for accepting! <br> See you soon! </p>
+            <h1>YEAYY :P 🎉</h1>
+            <p>Thank you for accepting! Here's our tentative plan:</p>
+
+            <div class="itinerary">
+                <h3>🎂 Birthday Itinerary</h3>
+                <ul>
+                    <li><span class="time">11:00am - 1:00pm</span> <span>Library school works</span></li>
+                    <li><span class="time">2:00pm - 3:30pm</span> <span>Escape Room (Harry Potter)</span></li>
+                    <li><span class="time">3:30pm - 4:30pm</span> <span>Art Studio 🎨</span></li>
+                    <li><span class="time">4:30pm - 6:00pm</span> <span>Free Time ✨</span></li>
+                    <li><span class="time">6:30pm - 8:00pm</span> <span>Iftar at Jibril 🌙</span></li>
+                    <li><span class="time">8:00pm - 9:00pm</span> <span>Loaf Adam Moreh 🥐</span></li>
+                </ul>
+            </div>
+
             <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmg2NDR1emh6dmRxcnF2ZTQ1aDZkMHhxZ2pqMmo2NXIzbjNhZnhrcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6WFScxN6fi95z3YVQD/giphy.gif">
+            <br>
             <button id="backBtn">Go Back Home 🏠</button>
         </div>
     </div>
@@ -194,7 +245,7 @@
     <script>
         // 1. Countdown Logic
         function updateCountdown() {
-            const birthday = new Date("March 14, 2026 00:00:00").getTime();
+            const birthday = new Date("March 15, 2026 00:00:00").getTime();
             const now = new Date().getTime();
             const diff = birthday - now;
 
@@ -225,7 +276,7 @@
             bg.appendChild(heart);
         }
 
-        // 3. Button & Popup Logic
+        // 3. Logic
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const questionSection = document.getElementById('questionSection');
@@ -252,7 +303,7 @@
             popup.style.opacity = "1";
             setTimeout(() => { popup.style.opacity = "0"; }, 1000);
 
-            yesScale += 0.25;
+            yesScale += 0.2;
             yesBtn.style.transform = `scale(${yesScale})`;
             count++;
         };
